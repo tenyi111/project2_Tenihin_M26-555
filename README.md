@@ -55,3 +55,5 @@
 Введите команду: list_tables
 - dad
 Введите команду: exit
+
+[![asciicast](https://asciinema.org/a/ySz9CalkuAEkQbAm.svg)](https://asciinema.org/a/ySz9CalkuAEkQbAm)
