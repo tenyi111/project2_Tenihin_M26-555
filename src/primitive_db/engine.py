@@ -1,7 +1,10 @@
-import prompt
-from . import core, utils
 import shlex
+
+import prompt
 from prettytable import PrettyTable
+
+from . import core, utils
+
 
 def run():
 
@@ -35,7 +38,10 @@ def run():
             
             data = core.create_table(metadata, command[1], command[2:])
             if data[1]:
-                print(f'Таблица "{command[1]}" успешно создана со столбцами: {", ".join(data[0][command[1]])}')
+                print(
+                f'Таблица "{command[1]}" успешно создана со столбцами: '
+                f'{", ".join(data[0][command[1]])}'
+                )
                 utils.save_metadata("db_meta.json", data[0])
             continue
 
@@ -82,7 +88,10 @@ def run():
             wr = core.insert(metadata, command[2], command[3:])
 
             if wr[1]:
-                print(f'Запись с ID={wr[2]} успешно добавлена в таблицу "{command[2]}".')
+                print(
+                    f'Запись с ID={wr[2]} '
+                    f'успешно добавлена в таблицу "{command[2]}".'
+                    )
                 utils.save_table_data(command[2], wr[0])
             continue
 
@@ -160,7 +169,7 @@ def run():
                     continue
 
             if len(command) > 5:
-                print(f'Команда "delete from" может принимать не больше 1 значения.')
+                print('Команда "delete from" может принимать не больше 1 значения.')
                 continue
             
             if command[2] not in metadata:
@@ -178,7 +187,8 @@ def run():
             res = core.delete(table_data, where_clause_delete)
 
             if res[1]:
-                print(f'Запись с {command[4]} успешно удалена в таблице "{command[2]}".')
+                print(f'Запись с {command[4]} успешно '
+                      f'удалена в таблице "{command[2]}".')
                 utils.save_table_data(command[2], res[0])
             continue
 
@@ -220,11 +230,16 @@ def print_help():
 
     print("\n***Операции с данными***")
     print("Команды вида 'a = b' обязательно заковываются в кавычки")
-    print("<command> insert into <имя_таблицы> values <значение1> <значение2> ... - создать запись.")
-    print("<command> select from <имя_таблицы> where '<столбец> = <значение>' - прочитать записи по условию.")
+    print("<command> insert into <имя_таблицы> " \
+    "values <значение1> <значение2> ... - создать запись.")
+    print("<command> select from <имя_таблицы> where "
+    "'<столбец> = <значение>' - прочитать записи по условию.")
     print("<command> select from <имя_таблицы> - прочитать все записи.")
-    print("<command> update <имя_таблицы> set '<столбец1> = <новое_значение1>' where '<столбец_условия> = <значение_условия>' - обновить запись.")
-    print("<command> delete from <имя_таблицы> where '<столбец> = <значение>' - удалить запись.")
+    print("<command> update <имя_таблицы> set " \
+    "'<столбец1> = <новое_значение1>' where "
+    "'<столбец_условия> = <значение_условия>' - обновить запись.")
+    print("<command> delete from <имя_таблицы> " \
+    "where '<столбец> = <значение>' - удалить запись.")
     print("<command> info <имя_таблицы> - вывести информацию о таблице.")
     
     print("\nОбщие команды:")

@@ -1,5 +1,5 @@
-from pathlib import Path
 from . import utils
+
 
 def create_table(metadata, table_name, columns):
 
@@ -39,7 +39,7 @@ def create_table(metadata, table_name, columns):
     
     if has_id:
         if columns[0] != "ID:int":
-                print(f"Ошибка: ID:int должен быть первым столбцом. Попробуйте снова.")
+                print("Ошибка: ID:int должен быть первым столбцом. Попробуйте снова.")
                 return metadata, success
         table = columns.copy()
         metadata[table_name] = table
@@ -78,7 +78,8 @@ def insert(metadata, table_name, values):
     data = utils.load_table_data(table_name)
 
     if len(values) != len(metadata[table_name])-1:
-        print('Ошибка: Количество аргументов не соответствует количеству аргументов таблицы, '
+        print('Ошибка: Количество аргументов' \
+        ' не соответствует количеству аргументов таблицы, '
               f'"{table_name}" принимает {len(metadata[table_name])-1} аргументов.')
         return data, success
 
@@ -95,12 +96,14 @@ def insert(metadata, table_name, values):
             try:
                 row[column.split(":")[0]] = int(value)
             except ValueError:
-                print(f'Ошибка: аргумент {value} не соответствует типу {column.split(":")[1]}.')
+                print(f'Ошибка: аргумент {value} '
+                      f'не соответствует типу {column.split(":")[1]}.')
                 return data, success, it_id
 
         elif column.split(":")[1] == "bool":
             if value.lower() not in ("true", "false"):
-                print(f'Ошибка: аргумент {value} не соответствует типу {column.split(":")[1]}.')
+                print(f'Ошибка: аргумент {value} '
+                      f'не соответствует типу {column.split(":")[1]}.')
                 return data, success, it_id
             else:
                 if value.lower() == "true":
@@ -154,7 +157,7 @@ def update(table_data, set_clause, where_clause):
                         return table_data, success
 
                     if col == "ID":
-                        print(f'Ошибка: столбец "ID" нельзя менять напрямую.')
+                        print('Ошибка: столбец "ID" нельзя менять напрямую.')
                         return table_data, success
                     
                     row[col] = v
