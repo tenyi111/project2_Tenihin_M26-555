@@ -1,1 +1,1 @@
-{}
+{"mom": ["ID:int", "name:str", "age:int", "engaged:bool"]}
